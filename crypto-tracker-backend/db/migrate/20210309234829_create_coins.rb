@@ -4,9 +4,10 @@ class CreateCoins < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :sym
       t.string :logo
-      t.decimal :bought_at
-      t.decimal :current_price
-      t.integer :user_id
+      t.decimal :price
+      t.decimal :hourly_percentage_change
+      t.decimal :high
+      t.decimal :low
 
       t.timestamps
     end
