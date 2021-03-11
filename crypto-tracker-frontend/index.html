@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CryptoTracker</title>
+    <link rel="icon" type="image/png" href="cts-logo.png" />
+    <title>Crypto Trading Simulator</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -17,22 +18,41 @@
     <link rel="stylesheet" href="stylesheets/style.css" />
   </head>
   <body>
-    <div class="container">
-      <h2>CryptoTracker</h2>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="cts-logo.png"
+            alt=""
+            width="40"
+            height="35"
+            class="d-inline-block align-top"
+          />
+          Crypto Trading Simulator
+        </a>
+      </div>
+    </nav>
 
+    <!-- Main -->
+    <div class="container" id="main"></div>
+
+    <hr />
+
+    <div class="container">
+      <h4 class="pt-3">CTS Wallet</h4>
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Coin</th>
             <th scope="col">Symbol</th>
-            <th scope="col">Price</th>
-            <th scope="col">1h</th>
-            <th scope="col">High (24h)</th>
-            <th scope="col">Low (24h)</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Value</th>
+            <th scope="col">Profit</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
-        <tbody id="tbody"></tbody>
+        <tbody id="wallet-table"></tbody>
       </table>
     </div>
 
@@ -41,6 +61,10 @@
       integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
       crossorigin="anonymous"
     ></script>
+    <script src="javascripts/globals.js"></script>
+    <script src="javascripts/services/api.js"></script>
+    <script src="javascripts/models/coin.js"></script>
+    <script src="javascripts/models/user.js"></script>
     <script src="javascripts/index.js"></script>
   </body>
 </html>
