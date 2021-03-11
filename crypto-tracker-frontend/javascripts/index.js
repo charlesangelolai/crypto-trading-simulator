@@ -10,8 +10,15 @@ function resetMarketTable() {
   marketTable().innerHTML = "";
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function renderPage() {
+  resetMain();
+
+  User.renderUserForm();
   Coin.renderMarketTable();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderPage();
   Coin.getCoins();
-  Coin.updateCoins();
+  // Coin.updateCoins();
 });

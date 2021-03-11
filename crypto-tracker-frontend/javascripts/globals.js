@@ -14,7 +14,7 @@ function main() {
   return document.getElementById("main");
 }
 
-function userForm() {
+function form() {
   return document.getElementById("user-form");
 }
 
