@@ -12,7 +12,6 @@ class Coin {
       })
       .then(function (data) {
         console.log("Fetching data...");
-        console.log(data);
         Coin.renderCoins(data);
         Coin.all = data;
       });
@@ -43,8 +42,7 @@ class Coin {
   /** Renders **/
 
   static renderMarketTable() {
-    resetMain();
-    main().innerHTML = Coin.marketTableTemplate();
+    main().innerHTML += Coin.marketTableTemplate();
   }
 
   static renderCoin(crypto) {
