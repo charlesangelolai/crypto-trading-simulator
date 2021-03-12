@@ -42,7 +42,7 @@ class Coin {
   /** Renders **/
 
   static renderMarketTable() {
-    main().innerHTML += Coin.marketTableTemplate();
+    marketMain().innerHTML = Coin.marketTableTemplate();
   }
 
   static renderCoin(crypto) {
