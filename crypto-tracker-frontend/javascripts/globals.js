@@ -10,12 +10,24 @@ function numberWithCommas(x) {
 
 /** Node Getters **/
 
-function main() {
-  return document.getElementById("main");
+function userMain() {
+  return document.getElementById("user-main");
+}
+
+function marketMain() {
+  return document.getElementById("market-main");
 }
 
 function form() {
   return document.getElementById("user-form");
+}
+
+function userNav() {
+  return document.getElementById("user-nav");
+}
+
+function userFormInput() {
+  return document.getElementById("username");
 }
 
 function walletTable() {
