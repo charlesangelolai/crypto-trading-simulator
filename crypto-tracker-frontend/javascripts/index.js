@@ -1,5 +1,13 @@
-function resetMain() {
-  main().innerHTML = "";
+function resetUserMain() {
+  userMain().innerHTML = "";
+}
+
+function resetUserNav() {
+  userNav().innerHTML = "";
+}
+
+function resetMarketMain() {
+  marketMain().innerHTML = "";
 }
 
 function resetWalletTable() {
@@ -11,14 +19,15 @@ function resetMarketTable() {
 }
 
 function renderPage() {
-  resetMain();
+  // resetMain();
 
-  User.renderUserForm();
+  // User.renderUserForm();
   Coin.renderMarketTable();
+  form().addEventListener("submit", User.submitForm);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   renderPage();
   Coin.getCoins();
-  // Coin.updateCoins();
+  Coin.updateCoins();
 });
