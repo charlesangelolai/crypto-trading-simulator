@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="stylesheets/style.css" />
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar sticky-top navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img
@@ -30,30 +30,25 @@
           />
           Crypto Trading Simulator
         </a>
+        <div id="user-nav">
+          <form class="d-flex" id="user-form">
+            <input
+              type="text"
+              class="form-control me-2"
+              name="username"
+              placeholder="Username"
+              id="username"
+            />
+            <button type="submit" class="btn btn-sm btn-primary">Login</button>
+          </form>
+        </div>
       </div>
     </nav>
 
     <!-- Main -->
-    <div class="container" id="main"></div>
-
-    <hr />
-
     <div class="container">
-      <h4 class="pt-3">CTS Wallet</h4>
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Coin</th>
-            <th scope="col">Symbol</th>
-            <th scope="col">Qty</th>
-            <th scope="col">Cost</th>
-            <th scope="col">Value</th>
-            <th scope="col">Profit</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody id="wallet-table"></tbody>
-      </table>
+      <div id="user-main"></div>
+      <div id="market-main"></div>
     </div>
 
     <script
