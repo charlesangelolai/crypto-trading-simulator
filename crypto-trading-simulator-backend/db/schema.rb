@@ -28,20 +28,20 @@ ActiveRecord::Schema.define(version: 2021_03_10_172205) do
   end
 
   create_table "trades", force: :cascade do |t|
+    t.string "coin_id"
+    t.string "logo"
+    t.string "sym"
     t.integer "qty"
-    t.decimal "cost"
-    t.decimal "value"
-    t.decimal "profit"
+    t.decimal "cost", precision: 8, scale: 2
     t.integer "user_id"
-    t.integer "coin_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.decimal "buying_power", default: "100000.0"
-    t.decimal "wallet_value", default: "0.0"
+    t.decimal "buying_power", precision: 8, scale: 2, default: "100000.0"
+    t.decimal "wallet_value", precision: 8, scale: 2, default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
