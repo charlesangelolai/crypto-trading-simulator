@@ -21,13 +21,15 @@ function resetMarketTable() {
 function renderPage() {
   // resetMain();
 
-  // User.renderUserForm();
+  User.renderUserForm();
   Coin.renderMarketTable();
-  form().addEventListener("submit", User.submitForm);
+  // form().addEventListener("submit", User.submitForm);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   renderPage();
   Coin.getCoins();
-  Coin.updateCoins();
+  User.getUsers();
+  Trade.getTrades();
+  // Coin.updateCoins();
 });
