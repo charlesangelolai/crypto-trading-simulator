@@ -18,7 +18,7 @@ function marketMain() {
   return document.getElementById("market-main");
 }
 
-function form() {
+function userForm() {
   return document.getElementById("user-form");
 }
 
@@ -28,6 +28,10 @@ function userNav() {
 
 function userFormInput() {
   return document.getElementById("username");
+}
+
+function buyQty(coin) {
+  return document.getElementById(`${coin}-qty`);
 }
 
 function walletTable() {
