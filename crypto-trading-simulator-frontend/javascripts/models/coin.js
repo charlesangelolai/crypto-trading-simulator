@@ -1,5 +1,6 @@
 class Coin {
   static all = [];
+  static state;
 
   /** Fetches **/
 
@@ -19,25 +20,6 @@ class Coin {
 
   /** Templates **/
   static marketTableTemplate() {
-    // return `
-    //   <h4 class="pt-3">Market Table</h4>
-    //   <table class="table table-hover">
-    //     <thead>
-    //       <tr>
-    //         <th scope="col">#</th>
-    //         <th scope="col">Coin</th>
-    //         <th scope="col">Symbol</th>
-    //         <th scope="col">Price</th>
-    //         <th scope="col">1h</th>
-    //         <th scope="col">High (24h)</th>
-    //         <th scope="col">Low (24h)</th>
-    //         <th scope="col">Action</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody id="market-table"></tbody>
-    //   </table>
-    // `;
-
     let h4 = document.createElement("h4");
     h4.setAttribute("class", "pt-3");
     h4.innerText = "Market Table";
@@ -147,26 +129,16 @@ class Coin {
 
     if (User.current_user) {
       let action = document.createElement("td");
-      // action.style = "width: 25%";
-      // let buy = document.createElement("a");
-      // buy.setAttribute("class", "btn btn-primary btn-sm");
-      // buy.style.padding = "6px 12px";
-      // buy.innerText = "Buy";
-      // buy.addEventListener("click", function (e) {
-      //   console.log(crypto);
-      // });
 
       let form = document.createElement("form");
       form.setAttribute("class", "d-flex");
-      form.setAttribute("id", "buy-form");
+      form.setAttribute("id", `${crypto.id}-buy-form`);
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        Trade.buy(User.current_user, crypto, buyQty(crypto.id).value);
-        // console.log(buyQty(crypto.id).value);
-        // console.log(crypto.id);
-        // console.log(crypto.current_price);
         // debugger;
+        Trade.buy(User.current_user, crypto, buyQty(crypto.id).value);
+        buyForm(crypto.id).reset();
       });
 
       let input = document.createElement("input");
@@ -175,6 +147,12 @@ class Coin {
       input.setAttribute("name", "qty");
       input.setAttribute("id", `${crypto.id}-qty`);
       input.setAttribute("placeholder", "Qty");
+      input.addEventListener("focus", function () {
+        clearInterval(Coin.state);
+      });
+      input.addEventListener("blur", function () {
+        Coin.updateCoins();
+      });
 
       let btn = document.createElement("button");
       btn.setAttribute("type", "submit");
@@ -202,6 +180,6 @@ class Coin {
   }
 
   static updateCoins() {
-    setInterval(Coin.getCoins, 1000);
+    Coin.state = setInterval(Coin.getCoins, 1000);
   }
 }
