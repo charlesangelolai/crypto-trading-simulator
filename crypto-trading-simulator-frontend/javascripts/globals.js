@@ -30,9 +30,21 @@ function userFormInput() {
   return document.getElementById("username");
 }
 
+function buyForm(coin) {
+  return document.getElementById(`${coin}-buy-form`);
+}
+
+function sellForm(coin) {
+  return document.getElementById(`${coin}-sell-form`);
+}
+
 function buyQty(coin) {
   return document.getElementById(`${coin}-qty`);
 }
+
+// function sell(coin) {
+//   return document.getElementById(`${coin}-qty`);
+// }
 
 function walletTable() {
   return document.getElementById("wallet-table");
