@@ -18,7 +18,7 @@ class TradesController < ApplicationController
 
     if @trade.save
       # render json: @trade, status: :created, location: @trade, except: [:created_at, :updated_at], include: [:user]
-      render json: TradeSerializer.new(@trade, {include: [:user]}), status: :created, location: @trade
+      render json: TradeSerializer.new(@trade), status: :created, location: @trade
     else
       render json: @trade.errors, status: :unprocessable_entity
     end
