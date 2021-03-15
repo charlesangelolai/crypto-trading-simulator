@@ -18,17 +18,18 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user, except: [:created_at, :updated_at], include: [:trades]
-      # render json: UserSerializer.new(@user, {include: [:trades]}), location: @user
+      # render json: @user, status: :created, location: @user, except: [:created_at, :updated_at], include: [:trades]
+      render json: UserSerializer.new(@user), location: @user
     else
       render json: @user.errors, status: :unprocessable_entity
     end
   end
-
+  
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)
-      render json: @user, except: [:created_at, :updated_at], include: [:trades]
+      # render json: @user, except: [:created_at, :updated_at], include: [:trades]
+      render json: UserSerializer.new(@user, {include: [:trades]})
     else
       render json: @user.errors, status: :unprocessable_entity
     end
