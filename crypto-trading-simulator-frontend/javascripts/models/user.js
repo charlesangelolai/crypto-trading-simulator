@@ -1,6 +1,7 @@
 class User {
   static all = [];
   static current_user = null;
+  static state = [];
 
   constructor(attr) {
     this.id = attr.id;
@@ -14,10 +15,11 @@ class User {
   }
 
   static logout() {
+    clearInterval(User.state);
+    User.current_user = null;
     resetUserNav();
     resetUserMain();
     resetMarketMain();
-    User.current_user = null;
     User.renderUserForm();
     User.getUsers();
     Coin.renderMarketTable();
@@ -25,7 +27,6 @@ class User {
   }
 
   static create(attr) {
-    User.current_user = attr;
     let user = new User(attr);
     user.save();
     return user;
@@ -36,9 +37,10 @@ class User {
   }
 
   static getWallet() {
-    User.renderUserWallet(
+    User.renderUserCoins(
       Trade.all.filter((t) => t.user_id === User.current_user.id)
     );
+    console.log("updating wallet...");
   }
 
   /** Templates **/
@@ -57,10 +59,9 @@ class User {
     input.setAttribute("placeholder", "Username");
 
     let btn = document.createElement("button");
+    btn.innerText = "Login";
     btn.setAttribute("type", "submit");
     btn.setAttribute("class", "btn btn-sm btn-success");
-    // btn.setAttribute("style", "background-color: #109e92");
-    btn.innerText = "Login";
 
     form.appendChild(input);
     form.appendChild(btn);
@@ -123,8 +124,8 @@ class User {
             <th scope="col">Symbol</th>
             <th scope="col">Qty</th>
             <th scope="col">Cost</th>
-            <th scope="col">Value</th>
-            <th scope="col">Profit</th>
+            <th scope="col">Current Value</th>
+            <th scope="col">Return</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -138,6 +139,7 @@ class User {
   static async getUserInfo(id) {
     const data = await Api.get(`/users/${id}`);
     // add render
+    debugger;
   }
 
   static async getUsers() {
@@ -164,14 +166,17 @@ class User {
         },
       };
 
-      Api.post("/users", strongParams).then(function (data) {
-        User.create(data);
+      Api.post("/users", strongParams).then(function (user) {
+        User.create(user.data.attributes);
+        User.current_user = user.data.attributes;
         User.renderUserInfo();
         User.getWallet();
-        Coin.renderM4arketTable();
+        Coin.renderMarketTable();
         Coin.getCoins();
       });
     }
+
+    User.updateWallet();
   }
 
   /** Renders **/
@@ -214,7 +219,7 @@ class User {
     val.innerHTML = `$${current_val.toFixed(2)}`;
 
     let r = document.createElement("td");
-    let r_val = crypto.cost - current_val;
+    let r_val = current_val - crypto.cost;
     r.innerHTML = `$${r_val.toFixed(2)}`;
 
     if (r_val > 0.0) {
@@ -232,11 +237,11 @@ class User {
     // form.addEventListener("submit", function (e) {
     //   e.preventDefault();
 
-    //   Trade.buy(User.current_user, crypto, buyQty(crypto.id).value);
-    //   // console.log(buyQty(crypto.id).value);
+    //   Trade.buy(User.current_user, crypto, sellQty(crypto.id).value);
+    //   // console.log(sellQty(crypto.id).value);
     //   // console.log(crypto.id);
     //   // console.log(crypto.current_price);
-    //   // debugger;
+    //   //
     // });
 
     let input = document.createElement("input");
@@ -245,6 +250,12 @@ class User {
     input.setAttribute("name", "qty");
     input.setAttribute("id", `${crypto.coin_id}-qty`);
     input.setAttribute("placeholder", "Qty");
+    input.addEventListener("focus", function () {
+      clearInterval(User.state);
+    });
+    input.addEventListener("blur", function () {
+      User.updateWallet();
+    });
 
     let btn = document.createElement("button");
     btn.setAttribute("type", "submit");
@@ -269,11 +280,20 @@ class User {
     walletTable().appendChild(tr);
   }
 
-  static renderUserWallet(coins) {
+  static renderUserWallet() {
     userMain().innerHTML = User.walletTableTemplate();
+  }
+
+  static renderUserCoins(coins) {
+    resetUserMain();
+    User.renderUserWallet();
 
     coins.forEach(function (coin) {
       User.renderUserCoin(coin);
     });
+  }
+
+  static updateWallet() {
+    User.state = setInterval(User.getWallet, 1000);
   }
 }
