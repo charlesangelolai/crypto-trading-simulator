@@ -60,10 +60,10 @@ class Trade {
       Trade.create(trade.data);
     });
 
-    Api.patch(`/users/${User.current_user.id}`, userParams).then((data) => {
-      User.current_user = data;
+    Api.patch(`/users/${User.current_user.id}`, userParams).then((user) => {
+      User.current_user = user.data.attributes;
       User.renderUserInfo();
-      User.renderUserWallet();
+      User.getWallet();
     });
   }
 }
