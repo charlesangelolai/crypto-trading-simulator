@@ -145,7 +145,7 @@ class Coin {
       input.setAttribute("type", "number");
       input.setAttribute("class", "form-control me-2");
       input.setAttribute("name", "qty");
-      input.setAttribute("id", `${crypto.id}-qty`);
+      input.setAttribute("id", `${crypto.id}-buy-qty`);
       input.setAttribute("placeholder", "Qty");
       input.addEventListener("focus", function () {
         clearInterval(Coin.state);
