@@ -39,12 +39,12 @@ function sellForm(coin) {
 }
 
 function buyQty(coin) {
-  return document.getElementById(`${coin}-qty`);
+  return document.getElementById(`${coin}-buy-qty`);
 }
 
-// function sell(coin) {
-//   return document.getElementById(`${coin}-qty`);
-// }
+function sellQty(coin) {
+  return document.getElementById(`${coin}-sell-qty`);
+}
 
 function walletTable() {
   return document.getElementById("wallet-table");
