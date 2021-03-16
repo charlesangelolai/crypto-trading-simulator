@@ -31,5 +31,5 @@ document.addEventListener("DOMContentLoaded", function () {
   Coin.getCoins();
   User.getUsers();
   Trade.getTrades();
-  // Coin.updateCoins();
+  Coin.updateCoins();
 });
