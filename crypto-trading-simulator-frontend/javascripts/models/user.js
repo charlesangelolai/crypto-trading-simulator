@@ -123,7 +123,7 @@ class User {
             <th scope="col">Coin</th>
             <th scope="col">Symbol</th>
             <th scope="col">Qty</th>
-            <th scope="col">Cost</th>
+            <th scope="col">Total Investment</th>
             <th scope="col">Current Value</th>
             <th scope="col">Return</th>
             <th scope="col">Action</th>
@@ -139,7 +139,6 @@ class User {
   static async getUserInfo(id) {
     const data = await Api.get(`/users/${id}`);
     // add render
-    debugger;
   }
 
   static async getUsers() {
@@ -233,22 +232,18 @@ class User {
     let action = document.createElement("td");
     let form = document.createElement("form");
     form.setAttribute("class", "d-flex");
-    form.setAttribute("id", "sell-form");
-    // form.addEventListener("submit", function (e) {
-    //   e.preventDefault();
+    form.setAttribute("id", `${crypto.coin_id}-sell-form`);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    //   Trade.buy(User.current_user, crypto, sellQty(crypto.id).value);
-    //   // console.log(sellQty(crypto.id).value);
-    //   // console.log(crypto.id);
-    //   // console.log(crypto.current_price);
-    //   //
-    // });
+      Trade.sell(User.current_user, crypto, sellQty(crypto.coin_id).value);
+    });
 
     let input = document.createElement("input");
     input.setAttribute("type", "number");
     input.setAttribute("class", "form-control me-2");
     input.setAttribute("name", "qty");
-    input.setAttribute("id", `${crypto.coin_id}-qty`);
+    input.setAttribute("id", `${crypto.coin_id}-sell-qty`);
     input.setAttribute("placeholder", "Qty");
     input.addEventListener("focus", function () {
       clearInterval(User.state);
@@ -264,8 +259,6 @@ class User {
 
     form.appendChild(input);
     form.appendChild(btn);
-
-    // userNav().appendChild(form);
 
     action.appendChild(form);
 
