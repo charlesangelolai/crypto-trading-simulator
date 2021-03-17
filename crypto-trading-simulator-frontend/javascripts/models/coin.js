@@ -13,16 +13,34 @@ class Coin {
       })
       .then(function (data) {
         console.log("Fetching data...");
-        Coin.renderCoins(data);
         Coin.all = data;
+
+        if (inputSearch().length > 0) {
+          Coin.renderCoins(Coin.all);
+        } else {
+          Coin.renderCoins(Coin.inputFilter());
+        }
       });
   }
 
   /** Templates **/
   static marketTableTemplate() {
+    let hDiv = document.createElement("div");
+    hDiv.setAttribute("class", "row justify-content-between pt-3 pb-3");
+
+    let hCol = document.createElement("div");
+    hCol.setAttribute("class", "col-4");
+    let sCol = document.createElement("div");
+    sCol.setAttribute("class", "col-4");
+
     let h4 = document.createElement("h4");
-    h4.setAttribute("class", "pt-3");
     h4.innerText = "Market Table";
+
+    let search = document.createElement("input");
+    search.setAttribute("placeholder", "Search Coin");
+    search.setAttribute("id", "search");
+    search.setAttribute("class", "form-control");
+    search.addEventListener("keyup", Coin.inputFilter);
 
     let table = document.createElement("table");
     table.setAttribute("class", "table table-hover");
@@ -75,7 +93,12 @@ class Coin {
     table.appendChild(thead);
     table.appendChild(tbody);
 
-    marketMain().appendChild(h4);
+    hCol.appendChild(h4);
+    sCol.appendChild(search);
+    hDiv.appendChild(hCol);
+    hDiv.appendChild(sCol);
+
+    marketMain().appendChild(hDiv);
     marketMain().appendChild(table);
   }
 
@@ -136,7 +159,6 @@ class Coin {
       form.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // debugger;
         Trade.buy(User.current_user, crypto, buyQty(crypto.id).value);
         buyForm(crypto.id).reset();
       });
@@ -162,8 +184,6 @@ class Coin {
       form.appendChild(input);
       form.appendChild(btn);
 
-      // userNav().appendChild(form);
-
       action.appendChild(form);
       tr.appendChild(action);
     }
@@ -181,5 +201,10 @@ class Coin {
 
   static updateCoins() {
     Coin.state = setInterval(Coin.getCoins, 1000);
+  }
+
+  static inputFilter() {
+    const text = document.querySelector("#search").value;
+    return Coin.all.filter((c) => c.id.includes(text));
   }
 }
