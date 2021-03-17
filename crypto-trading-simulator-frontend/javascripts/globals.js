@@ -53,3 +53,5 @@ function walletTable() {
 function marketTable() {
   return document.getElementById("market-table");
 }
+
+const inputSearch = () => document.querySelector("#search");
