@@ -135,12 +135,6 @@ class User {
   }
 
   /** Fetches **/
-
-  static async getUserInfo(id) {
-    const data = await Api.get(`/users/${id}`);
-    // add render
-  }
-
   static async getUsers() {
     const users = await Api.get("/users");
     User.all = [];
@@ -172,10 +166,9 @@ class User {
         User.getWallet();
         Coin.renderMarketTable();
         Coin.getCoins();
+        User.updateWallet();
       });
     }
-
-    User.updateWallet();
   }
 
   /** Renders **/
@@ -221,11 +214,11 @@ class User {
     let r_val = current_val - crypto.cost;
     r.innerHTML = `$${r_val.toFixed(2)}`;
 
-    if (r_val > 0.0) {
+    if (r_val > 0) {
       r.style.color = "green";
     }
 
-    if (r_val < 0.0) {
+    if (r_val < 0) {
       r.style.color = "red";
     }
 
@@ -282,7 +275,9 @@ class User {
     User.renderUserWallet();
 
     coins.forEach(function (coin) {
-      User.renderUserCoin(coin);
+      if (coin.qty > 0) {
+        User.renderUserCoin(coin);
+      }
     });
   }
 

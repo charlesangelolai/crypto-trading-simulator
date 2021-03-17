@@ -37,6 +37,7 @@ class Trade {
     let userTrades = Trade.all.filter((t) => t.user_id === user.id);
     let trade = userTrades.find((t) => t.coin_id === coin.id);
     let cost = coin.current_price * qty;
+    // calculate new buying power and wallet value
     let bp = parseFloat(user.buying_power) - cost;
     let wv = parseFloat(user.wallet_value) + cost;
 
@@ -71,7 +72,6 @@ class Trade {
 
       Api.post("/trades", tradeParams).then(function (trade) {
         Trade.create(trade.data);
-        // User.updateWallet();
       });
     }
 
@@ -133,7 +133,6 @@ class Trade {
 
     Api.patch(`/trades/${tradeID}`, tradeParams).then(() => {
       Trade.getTrades();
-      // User.updateWallet();
     });
 
     Api.patch(`/users/${user.id}`, userParams).then((user) => {

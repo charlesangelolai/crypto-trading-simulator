@@ -19,11 +19,8 @@ function resetMarketTable() {
 }
 
 function renderPage() {
-  // resetMain();
-
   User.renderUserForm();
   Coin.renderMarketTable();
-  // form().addEventListener("submit", User.submitForm);
 }
 
 document.addEventListener("DOMContentLoaded", function () {

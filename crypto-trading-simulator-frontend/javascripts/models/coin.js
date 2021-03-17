@@ -4,23 +4,19 @@ class Coin {
 
   /** Fetches **/
 
-  static getCoins() {
-    fetch(
+  static async getCoins() {
+    const resp = await fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-    )
-      .then(function (resp) {
-        return resp.json();
-      })
-      .then(function (data) {
-        console.log("Fetching data...");
-        Coin.all = data;
+    );
 
-        if (inputSearch().length > 0) {
-          Coin.renderCoins(Coin.all);
-        } else {
-          Coin.renderCoins(Coin.inputFilter());
-        }
-      });
+    const data = await resp.json();
+
+    console.log("Fetching data...");
+    Coin.all = data;
+
+    inputSearch().length > 0
+      ? Coin.renderCoins(Coin.all)
+      : Coin.renderCoins(Coin.inputFilter());
   }
 
   /** Templates **/
@@ -33,14 +29,14 @@ class Coin {
     let sCol = document.createElement("div");
     sCol.setAttribute("class", "col-4");
 
-    let h4 = document.createElement("h4");
-    h4.innerText = "Market Table";
-
     let search = document.createElement("input");
     search.setAttribute("placeholder", "Search Coin");
     search.setAttribute("id", "search");
     search.setAttribute("class", "form-control");
     search.addEventListener("keyup", Coin.inputFilter);
+
+    let h4 = document.createElement("h4");
+    h4.innerText = "Market Table";
 
     let table = document.createElement("table");
     table.setAttribute("class", "table table-hover");
@@ -204,7 +200,7 @@ class Coin {
   }
 
   static inputFilter() {
-    const text = document.querySelector("#search").value;
-    return Coin.all.filter((c) => c.id.includes(text));
+    const query = inputSearch().value;
+    return Coin.all.filter((c) => c.id.includes(query));
   }
 }

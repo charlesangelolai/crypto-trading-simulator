@@ -1,57 +1,30 @@
-/** Global Variables **/
-
-let cryptos = [];
-
 /** Formatters **/
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+const numberWithCommas = (x) =>
+  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 /** Node Getters **/
 
-function userMain() {
-  return document.getElementById("user-main");
-}
+const userMain = () => document.getElementById("user-main");
 
-function marketMain() {
-  return document.getElementById("market-main");
-}
+const marketMain = () => document.getElementById("market-main");
 
-function userForm() {
-  return document.getElementById("user-form");
-}
+const userForm = () => document.getElementById("user-form");
 
-function userNav() {
-  return document.getElementById("user-nav");
-}
+const userNav = () => document.getElementById("user-nav");
 
-function userFormInput() {
-  return document.getElementById("username");
-}
+const userFormInput = () => document.getElementById("username");
 
-function buyForm(coin) {
-  return document.getElementById(`${coin}-buy-form`);
-}
+const buyForm = (coin) => document.getElementById(`${coin}-buy-form`);
 
-function sellForm(coin) {
-  return document.getElementById(`${coin}-sell-form`);
-}
+const sellForm = (coin) => document.getElementById(`${coin}-sell-form`);
 
-function buyQty(coin) {
-  return document.getElementById(`${coin}-buy-qty`);
-}
+const buyQty = (coin) => document.getElementById(`${coin}-buy-qty`);
 
-function sellQty(coin) {
-  return document.getElementById(`${coin}-sell-qty`);
-}
+const sellQty = (coin) => document.getElementById(`${coin}-sell-qty`);
 
-function walletTable() {
-  return document.getElementById("wallet-table");
-}
+const walletTable = () => document.getElementById("wallet-table");
 
-function marketTable() {
-  return document.getElementById("market-table");
-}
+const marketTable = () => document.getElementById("market-table");
 
-const inputSearch = () => document.querySelector("#search");
+const inputSearch = () => document.getElementById("search");
